@@ -1,25 +1,31 @@
-(defun flatten (li)
-  (cond ((null li) nil)
-        ((atom li) `(,li) ) ;;THIS CONFUSES ME :(
-        (t (mapcan #'flatten li))))
+(defun myFlatten (listParam &optional (emptylist '()))
 
-(defun flattens (l)
-  (cond ((null l) nil)
-        ((atom l) (list l))
-        (t (loop for a in l appending (flatten a)))))
-
-(defun flattenn ( l )
-    (if (atom l)
-        (list l)
-        (append (flatten (car l)) (if (cdr l) (flatten (cdr l))))))
+	(loop for item in listParam
+		do
+			(if (atom item)
+				(setq emptylist (append emptylist (list item)))
+				(setq emptylist (myFlatten item emptylist))))
+	emptylist)
 
 (defun readFile()
+
+	(setq my-list '())
 	(let 
 		((in (open "nested_list.txt" :if-does-not-exist nil)))
    (when in
-      (loop for line = (read-line in nil)
-      while line do (format t "~a~%" line))
-      (close in))))
+      (loop for coin = (read in nil)
+      while coin do (setq my-list (append (list coin) my-list)))
+      (close in)))
+	(reverse my-list))
 
-(readFile)
-(print (flattenn `(a (a b) (a b (a c)))))
+(defun main()
+
+ (with-open-file (out "flattened_list.txt" 
+ 	:direction :output 
+ 	:if-does-not-exist :create)
+
+    (dolist (segment (myFlatten (readFile)))
+      (format out "~D " segment))
+    (format out "~%")))
+
+(main)

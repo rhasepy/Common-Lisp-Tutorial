@@ -22,11 +22,31 @@
 	(if (> number 1) (incf Pcounter))
 	(if (= 2 Pcounter) 1 0))
 
-(defun recognizer (number)
+(defun readFile()
 
-	(if (= 1 (isPrime number)) (format t "~d is Prime~%" number)
-		(if (= 1 (isSemiPrime number))
-			(format t "~d is Semi-prime~%" number))))
+	(setq my-list '())
 
-(loop for a from 2 to 10
-	do (recognizer a))
+	(let ((in (open "boundries.txt" :if-does-not-exist nil)))
+	   (when in
+	      (loop for token = (read in nil)
+	      while token do (setq my-list (append my-list (list token))))
+	      (close in)))
+
+	my-list)
+
+(defun main()
+
+	(setq numberList (readFile))
+	(setq lowerBound (min (car numberList) (car (cdr numberList))))
+	(setq upperBound (max (car numberList) (car (cdr numberList))))
+
+	 (with-open-file (out "primedistribution.txt"
+	 	:direction :output 
+	 	:if-does-not-exist :create)
+
+		(loop for number from lowerBound to upperBound
+			do 
+			(if (= 1 (isPrime number)) (format out "~d is Prime~%" number)
+				(if (= 1 (isSemiPrime number)) (format out "~d is Semi-prime~%" number))))))
+
+(main)
