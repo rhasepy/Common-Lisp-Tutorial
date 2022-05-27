@@ -8,7 +8,7 @@
 ;(format t "Color ~A, number1 ~D, number2 ~5,'0D, hex ~X, float ~5,2F, unsigned value ~D.~%"
 ;"red" 123456 89 255 3.14 250)
 
-(setq ka "bilgisayar kavramlari")
+(setq ka "computer sciende")
 (print ka)
 
 (print (mod 11 5))
@@ -20,19 +20,19 @@
 
 ;;;;;;;;;;;;;;;FLOW CHART;;;;;;;;;;;;;;;;;;;;
 (if (= 2 1) ; If state
-	(print "Esit") ; State of True
-	(print "Esit Degil")) ; State of False
+	(print "Equal") ; State of True
+	(print "Not Equal")) ; State of False
 
 (if (= x y) ; If state
-	(print "x ve y esit")
+	(print "x and y equal")
 	(if (< x y) ; Else if state
-		(print "x y den kucuk")
-		(print "x y den buyuk"))) ; Else state
+		(print "x less than y")
+		(print "x greater than y"))) ; Else state
 
 ; Condition step
-(cond ( (= x y) (print "x ve y esit") ) 
-	( (< x y) (print "x y den kucuk") )
-	( (> x y) (print "x y den buyuk") ))
+(cond ( (= x y) (print "x and y equal") ) 
+	( (< x y) (print "x less than y") )
+	( (> x y) (print "x greater than y") ))
 ;;;;;;;;;;;;;;;FLOW CHART;;;;;;;;;;;;;;;;;;;;
 
 
@@ -104,10 +104,5 @@
 (defparameter my-list (append (list 10) my-list)) 
 (print my-list)
 (defparameter my-list (cons (list 20) my-list))
-; cons liste olarak ekler alt liste gibi eger liste varsa
-; tek varsa tek ekler
-; appendden farkı append tek tek tum listeyi pushlar
-; cons alt liste olarak pushlar
-; ikisinde de define etmek gerekir
 (print my-list)
 ;;;;;;;;;;;;;;;;LIST;;;;;;;;;;;;;;;;;;
